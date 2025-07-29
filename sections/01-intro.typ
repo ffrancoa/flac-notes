@@ -1,32 +1,31 @@
 #set page(paper: "a4")
+#set par(justify: true)
 #set text(lang: "es")
 
 #show heading: set block(below: 1em)
 
 
-= Introducción
+= 1.0 Introducción
 
 == Observaciones generales
 
-FLAC2D presenta una interfaz mucho más dinámica que la que habíamos visto en FLAC 8.1 o anteriores versiones. Un buen flujo de trabajo en esta interfaz incluye:
+FLAC2D (también conocido como FLAC 9) presenta, en esta nueva versión, una interfaz gráfica (GUI) _mucho_ más dinámica que la que se había visto en su versión 8.1. A partir de este primer ejercicio es sencillo darse cuenta de que un buen flujo de trabajo en esta nueva interfaz requiere de dos habilidades esenciales:
 
-- Conocer la diferencia entre los archivos `.prj`, `.dat` y `.sav`.
++ Entender la peculiaridades de los diversos archivos que conforman un proyecto. Estos son:
 
-  - Los archivos `.prj` son los *proyectos* en sí mismos. Cada proyecto incluye un único modelo del problema a resolver.
+  - *Archivos `.prj`*: Estos archivos contienen la _estructura_ de cada proyecto, incluyendo al modelo geométrico específico del problema a resolver.
 
-  - Los archivos `.dat` son de *código fuente*. Es decir, almacenan comandos de manera secuencial con la final de generar resultados fáciles de replicar.
+  - *Archivos `.dat`*: Estos archivos permiten almacenar _comandos_ de FLAC (_i.e._, código fuente). Es una muy buena práctica ir creando archivos `.dat` a medida que se avanza en el proyecto.
 
-  - Los archivos `.sav` almacenan *estados* del problema a resolver. Un estado es un momento específico del modelo del problema (_e.g._, la generación de la malla, el estado inicial de esfuerzos, el fin de una excavación o cierto instante de un análisis dinámico).
+  - *Archivos `.sav`*: De manera similar a como los archivos `.dat`, al ser bien utilizados utilizados, nos facilitan una secuencia de desarrollo del modelo en comandos, los archivos `.sav` nos permiten grabar _estados_ (o _snapshots_) del modelo en un formato binario. La mayor ventaja de este formato es que, una vez creado, puede ahorrarnos un considerable de tiempo de ejecución en etapas críticas.
 
-- El saber sacar ventaja de la herramienta `Sketch Set` para la definición de los modelos geométricos de manera sencilla.
++ El saber adaptarse a la nueva herramienta *Sketch Set*, que será de gran ayuda en la definición de modelos geométricos complejos, algo que en versiones anteriores podía llegar a consumir varias horas de desarrollo.
 
-- Modularizar las distintas etapas del modelo en archivos `.dat` y `.sav`. Los primeros permiten _verificar_ el procedimiento empleado, mientras que los segundos _ahorran tiempo_ al poder saltar entre cada etapa sin necesidad de volver a ejecutar todo ciclo de cómputo.
-
-== Primer ejercicio
+== Ejercicio: _Tutorial de inicio rápido_
 
 === Objetivo
 
-Explorar la interfaz de FLAC2D mediante la simulación de una excavación de un talud homogéneo para finalmente evaluar su estabilidad física (ver Fig. 1).
+Más allá del apartado académico, el objetivo de este primer ejercicio es conocer las ventajas de la nueva interfaz de FLAC2D. El manual plantea esto mediante la simulación de la excavación de un talud homogéneo, sobre el que finalmente se evalúa su estabilidad física (ver Fig. 1).
 
 #figure(
   image("/screenshots/01-intro/01-overview.png", width: 80%),
@@ -35,9 +34,11 @@ Explorar la interfaz de FLAC2D mediante la simulación de una excavación de un 
   ]
 )
 
+Puedes dar un #underline[#link("https://docs.itascacg.com/itasca900/flac3d/zone/test2d/UsersGuide/Tutorial/QuickStart/flac2dquickstart.html")[click aquí]] para ir al sitio web de este ejercicio.
+
 === Comentarios
 
-Me gustó el acercamiento a la escritura de comandos desde la misma interfaz de FLAC2D. Hasta FLAC 8.1, era obvio darse cuenta de que el propio software no era el más indicado para la codificación; sin embargo, en esta nueva interfaz, la experiencia fue significativamente más amigable (ver Fig. 2).
+Mi mayor apreciación de este ejercicio fue la escritura de comandos desde la misma interfaz gráfica. Hasta FLAC 8.1, estaba claro que el propio software no era el más indicado para la codificación de comandos (una prueba de esto era el conocido #link("https://github.com/katerinaziot/FLAC-Tools")[script de sintaxis creado por la Dra. Ziotopolou para Sublime Text 3], el cual es un editor de código con todas las ventajas típicas de estos programas). No obstante, en esta nueva interfaz, FLAC2D ofreció una experiencia significativamente más amigable para mí como programador (ver Fig. 2).
 
 #figure(
   image("/screenshots/01-intro/02-flac2d-code-editor.png", width: 80%),
@@ -46,7 +47,7 @@ Me gustó el acercamiento a la escritura de comandos desde la misma interfaz de 
   ]
 )
 
-De manera similar, el tener un mejor control sobre los paneles de la GUI permite ahora visualizar, en pleno desarrollo, mucho mejor las figuras que uno va realizando, al punto de abarcar prácticamente toda la pantalla (ver Fig. 3).
+Adicionalmente, los nuevos paneles flexibles de la GUI permiten ahora visualizar, con mucho mayor claridad que antes, las figuras que uno va realizando durante el desarrollo de un proyecto, al punto de poder abarcar prácticamente toda la pantalla (ver Fig. 3).
 
 #figure(
   image("/screenshots/01-intro/03-flac2d-panes-and-plot.png", width: 80%),
@@ -55,8 +56,8 @@ De manera similar, el tener un mejor control sobre los paneles de la GUI permite
   ]
 )
 
-La razón de mi agrado con esta nueva facilidad es que durante análisis largos, en los que es de interés para nosotros conocer cómo varía el estado del modelo, esta visualización tan clara nos permite concentrar tanto los recursos del software, como nuestra atención en el avance del modelo.
+Esta nueva accesibilidad, para el caso específico de etapas de una importante duración, nos permitiría concentrar nuestra atención en el avance computacional del modelo.
 
 == Conclusión
 
-A pesar de que el acercamiento a los comandos (tanto a su codificación como a la curiosidad que trae la funcionalidad de estos) se sienta corto, es importante entender que el objetivo de este primer ejercicio es justamente ello: despertar el interés. La soltura en el software y la comprensión de cada uno delos comandos vistos llegarán por si solos, naturalmente.
+A pesar de que el acercamiento a FLAC2D con este primer ejercicio se haya sentido efímero, es necesario entender que el objetivo del mismo ha sido justamente ese: captar nuestro interés. La soltura en el software y la comprensión de cada uno delos comandos vistos llegarán por sí solos, naturalmente, a medida que la práctica se haga más disciplinada.
